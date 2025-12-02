@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("wepapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da1629ec9f1bbdd5e569ac7c8e63dc07464bdc17")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a69eb5b76f0ac83ffe347f83e4889a5527a0698")]
 [assembly: System.Reflection.AssemblyProductAttribute("wepapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("wepapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
