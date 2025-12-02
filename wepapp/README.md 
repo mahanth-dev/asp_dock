@@ -1,0 +1,32 @@
+# ASP.NET MVC Products
+
+A full-stack ASP.NET Core 8 application featuring a clean Products API, MVC Razor UI frontend, MySQL database, and TailwindCSS styling.  
+The project demonstrates a modern, lightweight product management dashboard using EF Core, REST API, and client-side fetch rendering.
+
+---
+
+## 🚀 Features
+
+- ASP.NET Core 8 MVC Architecture
+- REST API for Products (`/api/products`)
+- MySQL database using Entity Framework Core
+- Migrations enabled (`dotnet ef`)
+- TailwindCSS (via CDN) for fast UI styling
+- Razor Views (server-rendered) with client-side fetch
+- Full CRUD structure (GET / POST implemented, ready for PUT / DELETE)
+- Clean separation of MVC UI and API controllers
+
+---
+
+## 📦 Tech Stack
+
+- **Backend:** ASP.NET Core 8  
+- **Database:** MySQL  
+- **ORM:** Entity Framework Core  
+- **Frontend:** Razor Views + TailwindCSS  
+- **Client-side:** JavaScript Fetch API  
+- **Architecture:** MVC + API (dual-controller system)
+
+---
+
+## 🗂 Project Structure

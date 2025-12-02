@@ -1,0 +1,154 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - wepapp</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Load theme from localStorage
+        if (
+            localStorage.theme === "dark" ||
+            (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    </script>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 transition">
+
+    <div class="max-w-3xl mx-auto py-12 px-4">
+
+        <!-- Header -->
+        <div class="mb-12 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">
+                    Product Manager
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Manage products with elegance.</p>
+            </div>
+
+            <!-- Theme Toggle -->
+            <button id="themeToggle"
+                class="px-4 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 dark:text-gray-200 text-gray-800 shadow hover:opacity-80 transition">
+                Toggle Theme
+            </button>
+        </div>
+
+        <!-- Add Product Form -->
+        <form id="productForm"
+              class="bg-white dark:bg-gray-800 dark:border-gray-700 p-8 rounded-2xl shadow-lg border border-gray-200 mb-12 transition">
+
+            <h2 class="text-xl font-bold mb-6 dark:text-white">Add New Product</h2>
+
+            <div class="grid grid-cols-1 gap-6">
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 dark:text-gray-300">Title</label>
+                    <input id="title" name="title" type="text"
+                           class="w-full p-3 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white dark:focus:bg-gray-600 transition" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 dark:text-gray-300">Description</label>
+                    <textarea id="description" name="description"
+                              class="w-full p-3 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:bg-gray-600 transition"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 dark:text-gray-300">Price</label>
+                    <input id="price" name="price" type="number" step="0.01"
+                           class="w-full p-3 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:bg-gray-600 transition" />
+                </div>
+
+                <button id="addBtn" type="submit"
+                        class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-lg shadow hover:bg-blue-700 active:scale-[.98] transition">
+                    Add Product
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- Product List -->
+        <h2 class="text-2xl font-bold mb-4 dark:text-white">Products</h2>
+
+        <div id="productsList" class="space-y-4">
+            <!-- Injected -->
+        </div>
+    </div>
+
+
+    <script>
+        // THEME TOGGLE
+        const themeToggle = document.getElementById("themeToggle");
+
+        themeToggle.addEventListener("click", () => {
+            document.documentElement.classList.toggle("dark");
+
+            // Save to localStorage
+            if (document.documentElement.classList.contains("dark")) {
+                localStorage.theme = "dark";
+            } else {
+                localStorage.theme = "light";
+            }
+        });
+
+
+        const apiUrl = "/api/products";
+
+        async function loadProducts() {
+            const res = await fetch(apiUrl);
+            const products = await res.json();
+
+            const list = document.getElementById("productsList");
+            list.innerHTML = "";
+
+            products.forEach(p => {
+                const item = `
+                <div class="bg-white dark:bg-gray-800 dark:border-gray-700 p-6 border border-gray-200 rounded-xl shadow-sm flex justify-between items-center hover:shadow-md transition">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${p.title}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">${p.description}</p>
+                    </div>
+                    <div class="text-blue-600 font-bold text-xl">$${p.price}</div>
+                </div>
+                `;
+                list.innerHTML += item;
+            });
+        }
+
+        document.getElementById("addBtn").addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const body = {
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                price: parseFloat(document.getElementById("price").value)
+            };
+
+            const res = await fetch(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+
+            if (res.ok) {
+                document.getElementById("title").value = "";
+                document.getElementById("description").value = "";
+                document.getElementById("price").value = "";
+                loadProducts();
+            } else {
+                alert("Error saving product");
+            }
+        });
+
+        loadProducts();
+    </script>
+
+</body>

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-dotnet-app-local-mysql
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      # پسورد ساده شده: Mahan1234
+      - ConnectionStrings__DefaultConnection=Server=db-mysql;Port=3306;Database=asp_data;User=root;Password=Mahan1234;SslMode=None;
+    depends_on:
+      - db-mysql
+    networks:
+      - my-app-network
+
+  db-mysql:
+    image: mysql:8.0
+    container_name: my-mysql-db-local
+    # این دستور برای جلوگیری از برخی مشکلات پسورد در نسخه‌های جدید است
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      # همان پسورد ساده شده:
+      MYSQL_ROOT_PASSWORD: "Mahan1234"
+      MYSQL_DATABASE: "asp_data"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my-app-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  my-app-network:
+    driver: bridge

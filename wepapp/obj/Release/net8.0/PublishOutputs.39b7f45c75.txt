@@ -1,0 +1,12 @@
+/home/asus/project/C#/mvc_2/wepapp/publish/wepapp
+/home/asus/project/C#/mvc_2/wepapp/publish/appsettings.Development.json
+/home/asus/project/C#/mvc_2/wepapp/publish/appsettings.json
+/home/asus/project/C#/mvc_2/wepapp/publish/wepapp.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/wepapp.runtimeconfig.json
+/home/asus/project/C#/mvc_2/wepapp/publish/wepapp.pdb
+/home/asus/project/C#/mvc_2/wepapp/publish/Microsoft.EntityFrameworkCore.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/Microsoft.EntityFrameworkCore.Abstractions.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/Microsoft.EntityFrameworkCore.Relational.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/MySqlConnector.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/Pomelo.EntityFrameworkCore.MySql.dll
+/home/asus/project/C#/mvc_2/wepapp/publish/wepapp.deps.json
